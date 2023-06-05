@@ -52,7 +52,9 @@ public class SnapTask : BaseTask, IBeginDragHandler, IEndDragHandler
             SnapObject.GetComponent<Collider>().enabled = false;
             SnapObject.gameObject.SetActive(true);
             SnapSocket.gameObject.SetActive(false);
-            OnTaskEnd.Invoke();
+            //OnTaskEnd.Invoke();
+
+            TasksList.OnTaskEnd.Invoke();
 
             transform.GetChild(0).GetComponent<Image>().sprite = null;
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
+using System;
 
 public class TasksList : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class TasksList : MonoBehaviour
 
     public List<BaseTask> TotalTask;
 
+    public static Action OnTaskEnd;
+
 
     // Start is called before the first frame update
     void Start()
@@ -28,12 +31,12 @@ public class TasksList : MonoBehaviour
         CurrentTask = TotalTask.First();
         CurrentTask.GetComponent<SnapTask>().SnapSocket.GetComponent<Outline>().enabled = true;
 
-        CurrentTask.OnTaskEnd += ChangeTaskStatus;
+        OnTaskEnd += ChangeTaskStatus;
     }
 
     private void OnDisable()
     {
-        CurrentTask.OnTaskEnd -= ChangeTaskStatus;
+        OnTaskEnd -= ChangeTaskStatus;
     }
 
     // Update is called once per frame
@@ -53,16 +56,25 @@ public class TasksList : MonoBehaviour
     }
 
     public void ChangeTaskStatus() {
-        CurrentTaskIndex++;
-        CurrentTask = TotalTask[CurrentTaskIndex];
-        CurrentTask.istaskActive = true;
 
-        CurrentTask.OnTaskEnd += ChangeTaskStatus;
+        try
+        {
+            CurrentTaskIndex++;
 
-        //CurrentTask.OnTaskEnd.AddListener(() => ChangeTaskStatus());
+            if(CurrentTaskIndex <= TotalTask.Count) {
+            CurrentTask = TotalTask[CurrentTaskIndex];
+            CurrentTask.istaskActive = true;
 
-        CurrentTask.GetComponent<SnapTask>().SnapSocket.GetComponent<Outline>().enabled = true;
-        //CurrentTask.GetComponent<SnapTask>().SnapSocket.GetComponent<MeshRenderer>().material = CurrentTask.GetComponent<SnapTask>()._SocketMaterial;
-        Debug.Log("On Task End");
+            //CurrentTask.OnTaskEnd.AddListener(() => ChangeTaskStatus());
+
+            CurrentTask.GetComponent<SnapTask>().SnapSocket.GetComponent<Outline>().enabled = true;
+            //CurrentTask.GetComponent<SnapTask>().SnapSocket.GetComponent<MeshRenderer>().material = CurrentTask.GetComponent<SnapTask>()._SocketMaterial;
+            Debug.Log("On Task End");
+            }
+        }
+        catch (Exception ex)
+        {
+
+        }
     }
 }
