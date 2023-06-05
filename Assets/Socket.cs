@@ -14,7 +14,7 @@ public class Socket : MonoBehaviour
         if (other.GetComponent<SnapObject>().id == id) {
         Debug.Log($"OnTriggerEnter: {other.name}");
             other.GetComponent<SnapObject>().isMatched = true;
-            other.gameObject.transform.position = this.transform.position;
+            other.gameObject.transform.localPosition = transform.localPosition;
             other.enabled = false;
         }
     }

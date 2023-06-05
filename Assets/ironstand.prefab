@@ -1181,6 +1181,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1940469494778772318}
+  - component: {fileID: 3692478227615897392}
+  - component: {fileID: 1284891859274957977}
   m_Layer: 0
   m_Name: ironstand
   m_TagString: Untagged
@@ -1196,7 +1198,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1940469494778772317}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.329491, y: 0.090236865, z: -2.0706491}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1215,3 +1217,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3692478227615897392
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940469494778772317}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5005975, y: 5.08821, z: 1.6674628}
+  m_Center: {x: -2.92015, y: -0.083432674, z: -2.628135}
+--- !u!65 &1284891859274957977
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940469494778772317}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.0452995, y: 0.62455225, z: 0.79141784}
+  m_Center: {x: -1.647799, y: 2.1483963, z: -2.6489935}

@@ -20,6 +20,13 @@ public class BaseTask : MonoBehaviour
 
     [Space]
     public UnityEvent OnTaskBegin, OnTaskEnd;
+
+
+    public virtual void AutoCompleteTask() {
+
+    }
+
+
 }
 
 public enum Tasks {

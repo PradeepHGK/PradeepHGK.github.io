@@ -10,6 +10,9 @@ public class SnapTask : BaseTask, IBeginDragHandler, IEndDragHandler
 
     [SerializeField] GameObject _modelInstantiated;
 
+    [SerializeField] Material _SocketMaterial;
+
+
 
     private void Start()
     {
@@ -63,5 +66,10 @@ public class SnapTask : BaseTask, IBeginDragHandler, IEndDragHandler
     public void OnBeginDrag(PointerEventData eventData)
     {
         InstantiateSnapObject();
+    }
+
+    public override void AutoCompleteTask()
+    {
+        base.AutoCompleteTask();
     }
 }
