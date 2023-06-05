@@ -19,7 +19,8 @@ public class BaseTask : MonoBehaviour
     }
 
     [Space]
-    public UnityEvent OnTaskBegin, OnTaskEnd;
+    public UnityEvent OnTaskBegin;
+    public Action OnTaskEnd;
 
 
     public virtual void AutoCompleteTask() {

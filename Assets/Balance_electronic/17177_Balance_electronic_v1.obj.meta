@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 58b60f4e9742b47e7b09636cd6d7e577
+guid: 61592e0ad12b941888c2ed0ab7e26076
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -7,13 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Glass_MAT
-    second: {fileID: 2100000, guid: 5d96a5c3b903747d18816f3683885d91, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Granite_MAT
-    second: {fileID: 2100000, guid: 84799728aab8549b9b6daec0414aafd4, type: 2}
+      name: 17177_BalanceMat
+    second: {fileID: 2100000, guid: 06f7f6973b1514d5ebc55cfb873dbe8e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -101,11 +96,11 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 1
+    hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1

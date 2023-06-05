@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class SnapTask : BaseTask, IBeginDragHandler, IEndDragHandler
 {
@@ -10,7 +11,7 @@ public class SnapTask : BaseTask, IBeginDragHandler, IEndDragHandler
 
     [SerializeField] GameObject _modelInstantiated;
 
-    [SerializeField] Material _SocketMaterial;
+    public Material _SocketMaterial;
 
 
 
@@ -35,7 +36,7 @@ public class SnapTask : BaseTask, IBeginDragHandler, IEndDragHandler
     {
         //_modelInstantiated = Instantiate(model);
 
-        if (SnapObject.GetComponent<Collider>().enabled) {
+        if (SnapObject.GetComponent<Collider>().enabled && istaskActive) {
             _modelInstantiated = SnapObject.gameObject;
             SnapObject.gameObject.SetActive(true);
         }
@@ -51,21 +52,31 @@ public class SnapTask : BaseTask, IBeginDragHandler, IEndDragHandler
             SnapObject.GetComponent<Collider>().enabled = false;
             SnapObject.gameObject.SetActive(true);
             SnapSocket.gameObject.SetActive(false);
+            OnTaskEnd.Invoke();
+
+            transform.GetChild(0).GetComponent<Image>().sprite = null;
         }
         else
         {
             SnapObject.gameObject.SetActive(false);
+            transform.GetChild(0).GetComponent<Image>().enabled = true;
         }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        RemoveAddedModel();
+        //if (!SnapObject.isMatched)
+            RemoveAddedModel();
+        
+
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        InstantiateSnapObject();
+        if (!SnapObject.isMatched) {
+            transform.GetChild(0).GetComponent<Image>().enabled = false;
+            InstantiateSnapObject();
+        }
     }
 
     public override void AutoCompleteTask()
