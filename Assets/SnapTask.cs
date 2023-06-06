@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class SnapTask : BaseTask, IBeginDragHandler, IEndDragHandler
 {
@@ -12,16 +13,20 @@ public class SnapTask : BaseTask, IBeginDragHandler, IEndDragHandler
     [SerializeField] GameObject _modelInstantiated;
 
     public Material _SocketMaterial;
-    private Vector3 mousePost;
+    private Vector3 initPost;
+    private bool isCameraLerpEnabled;
+    private float timeToLerp=3;
+
 
     private void Start()
     {
         TaskType = Tasks.Snap;
+        initPost = Camera.main.transform.position;
     }
 
     private void OnMouseDown()
     {
-        mousePost = Input.mousePosition - Camera.main.WorldToScreenPoint(SnapObject.transform.position);
+        //mousePost = Input.mousePosition - Camera.main.WorldToScreenPoint(SnapObject.transform.position);
     } 
 
     // Update is called once per frame
@@ -42,6 +47,11 @@ public class SnapTask : BaseTask, IBeginDragHandler, IEndDragHandler
 
             _modelInstantiated.transform.position = newPos;
         }
+
+        if (isCameraLerpEnabled) {
+
+            CameraLerp();
+        }
     }
 
 
@@ -52,7 +62,26 @@ public class SnapTask : BaseTask, IBeginDragHandler, IEndDragHandler
         if (SnapObject.GetComponent<Collider>().enabled && istaskActive) {
             _modelInstantiated = SnapObject.gameObject;
             SnapObject.gameObject.SetActive(true);
+
+
+            isCameraLerpEnabled = true;
         }
+    }
+
+
+    private void CameraLerp() {
+        timeToLerp = Time.deltaTime * 3;
+
+        Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, new Vector3(SnapSocket.transform.position.x - 1, Camera.main.transform.position.y, SnapSocket.transform.position.z - 7), timeToLerp);
+        //isCameraLerpEnabled = false;
+
+    }
+
+    private void InitPosCameraLerp()
+    {
+        timeToLerp = 3;
+
+        Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, initPost, timeToLerp);
     }
 
     public void RemoveAddedModel()
@@ -70,12 +99,15 @@ public class SnapTask : BaseTask, IBeginDragHandler, IEndDragHandler
             TasksList.OnTaskEnd.Invoke();
 
             transform.GetChild(0).GetComponent<Image>().sprite = null;
+
+            InitPosCameraLerp();
         }
         else
         {
             SnapObject.gameObject.SetActive(false);
             transform.GetChild(0).GetComponent<Image>().enabled = true;
         }
+        isCameraLerpEnabled = false;
     }
 
     public void OnEndDrag(PointerEventData eventData)
