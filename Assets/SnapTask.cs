@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
-public class SnapTask : BaseTask, IBeginDragHandler, IEndDragHandler
+public class SnapTask : BaseTask, IBeginDragHandler, IEndDragHandler, IPointerUpHandler
 {
     public SnapObject SnapObject;
     public Socket SnapSocket;
@@ -15,6 +15,8 @@ public class SnapTask : BaseTask, IBeginDragHandler, IEndDragHandler
     public Material _SocketMaterial;
     private Vector3 initPost;
     private bool isCameraLerpEnabled;
+    private bool isCameraLerpToInit;
+
     private float timeToLerp=3;
 
 
@@ -70,16 +72,14 @@ public class SnapTask : BaseTask, IBeginDragHandler, IEndDragHandler
 
 
     private void CameraLerp() {
-        timeToLerp = Time.deltaTime * 3;
+        timeToLerp = Time.deltaTime * 10;
 
         Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, new Vector3(SnapSocket.transform.position.x - 1, Camera.main.transform.position.y, SnapSocket.transform.position.z - 7), timeToLerp);
-        //isCameraLerpEnabled = false;
-
     }
 
     private void InitPosCameraLerp()
     {
-        timeToLerp = 3;
+        timeToLerp = Time.deltaTime * 3;
 
         Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, initPost, timeToLerp);
     }
@@ -101,7 +101,9 @@ public class SnapTask : BaseTask, IBeginDragHandler, IEndDragHandler
             transform.GetChild(0).GetComponent<Image>().sprite = null;
 
             InitPosCameraLerp();
-        }
+            isCameraLerpToInit = true;
+
+}
         else
         {
             SnapObject.gameObject.SetActive(false);
@@ -109,6 +111,7 @@ public class SnapTask : BaseTask, IBeginDragHandler, IEndDragHandler
         }
         isCameraLerpEnabled = false;
     }
+
 
     public void OnEndDrag(PointerEventData eventData)
     {
@@ -129,5 +132,10 @@ public class SnapTask : BaseTask, IBeginDragHandler, IEndDragHandler
     public override void AutoCompleteTask()
     {
         base.AutoCompleteTask();
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        isCameraLerpToInit = false;
     }
 }
